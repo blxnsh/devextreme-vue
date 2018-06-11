@@ -94,12 +94,14 @@ const BaseComponent: VueConstructor = Vue.extend({
         },
 
         $_createEmitters(instance: any): void {
-            Object.keys(this.$listeners).forEach((listenerName: string) => {
-                const eventName = camelize(listenerName);
-                instance.on(eventName, (e: any) => {
-                    this.$emit(listenerName, e);
-                });
-            });
+            if(this.$listeners){
+                Object.keys(this.$listeners).forEach((listenerName: string) => {
+                    const eventName = camelize(listenerName);
+                    instance.on(eventName, (e: any) => {
+                        this.$emit(listenerName, e);
+                    });
+                });    
+            }
         }
     }
 });
